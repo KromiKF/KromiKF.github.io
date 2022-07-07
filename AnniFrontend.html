@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Nomi</td>
+                <td>Cognomi</td>
+                <td>Età</td>
+            </tr>
+        </thead>
+
+        <tbody id="dati-anagrafici">
+            
+        </tbody>
+        
+      </table>
+      <script>
+        var datiAnagrafici = 
+        [
+            {
+                firstName : "Anni",
+                surname : "Xu",
+                age : "18"
+            },
+            {
+                firstName : "Andrea",
+                surname : "Vinciguerra",
+                age : "17"
+            },
+            {
+                firstName : "Flavio",
+                surname : "Merlino",
+                age : "17"
+            }
+        ];
+
+        $.ajax
+        ({
+            method: "GET",
+            url: "http://localhost:5104/api/Conto",
+            success: function (datiAnagrafici)
+            {
+                for(var utente of datiAnagrafici)
+                {   
+                    var tr = $("<tr/>");
+                    var tdFirstName = $("<td/>").text(utente.firstName);
+                    tr.append(tdFirstName);
+                    var tdSurname = $("<td/>").text(utente.surname);
+                    tr.append(tdSurname);
+                    var tdAge = $("<td/>").text(utente.age);
+                    tr.append(tdAge);
+
+                    $('#dati-anagrafici').append(tr);
+                }    
+            }
+        });
+        
+        
+       
+      </script>
+</body>
+
+</html>
+
