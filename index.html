@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-
-<body>
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Nomi</td>
-                <td>Cognomi</td>
-                <td>Età</td>
-            </tr>
-        </thead>
-
-        <tbody id="dati-anagrafici">
-            
-        </tbody>
-        
-      </table>
-      <script>
-        var datiAnagrafici = 
-        [
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <style>
+            table, th, tr, td
             {
-                firstName : "Anni",
-                surname : "Xu",
-                age : "18"
-            },
-            {
-                firstName : "Andrea",
-                surname : "Vinciguerra",
-                age : "17"
-            },
-            {
-                firstName : "Flavio",
-                surname : "Merlino",
-                age : "17"
+                border: 1px solid black;
+                padding: 3px 5px;
+                border-collapse: collapse;
+                font-size: 35px;
             }
-        ];
+        </style>
+    </head>
+    <body>
+        <table id="table">
+            <thead>
+                <tr colspan="3">
+                    <th colspan="3">Dati anagrafici</th>
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Età</th>
+                </tr>
+            </thead>
+            <tbody id="dati-anagrafici">
+                
+            </tbody>
+        </table>
+        <br><br><br><br>
+        <table id="table">
+            <thead>
+                <tr colspan="3">
+                    <th colspan="3">Dati conto</th>
+                </tr>
+                <tr>
+                    <th>Account balance</th>
+                    <th>UserID</th>
+                </tr>
+            </thead>
+            <tbody id="dati-conto">
+                
+            </tbody>
+        </table>
 
-        $.ajax
-        ({
-            method: "GET",
-            url: "http://localhost:5104/api/Conto",
-            success: function (datiAnagrafici)
-            {
-                for(var utente of datiAnagrafici)
-                {   
-                    var tr = $("<tr/>");
-                    var tdFirstName = $("<td/>").text(utente.firstName);
-                    tr.append(tdFirstName);
-                    var tdSurname = $("<td/>").text(utente.surname);
-                    tr.append(tdSurname);
-                    var tdAge = $("<td/>").text(utente.age);
-                    tr.append(tdAge);
+        <script>
 
-                    $('#dati-anagrafici').append(tr);
-                }    
-            }
-        });
-        
-        
-       
-      </script>
-</body>
-
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:5104/api/Customer",
+                success: function(utenti){
+                    for(var utente of utenti)
+                    {
+                        var tr = $("<tr/>");
+                        $('#dati-anagrafici').append(tr);
+                        tr.append($('<td/>').append(utente.firstName));
+                        tr.append($('<td/>').append(utente.secondName));
+                        tr.append($('<td/>').append(utente.age));
+                    }
+                }
+            });        
+           
+            $.ajax({
+                method: "GET",
+                url:"http://localhost:5104/api/Conto",
+                success: function(conti){
+                    for(var conto of conti)
+                    {
+                        var tr = $("<tr/>");
+                        $('#dati-conto').append(tr);
+                        tr.append($('<td/>').append(conto.accountBalance));
+                        tr.append($('<td/>').append(conto.userId));
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>
-
