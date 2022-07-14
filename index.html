@@ -55,7 +55,7 @@
             var balances = responseBalance[0];
             for(var user of users)
             {
-                var tr = $("<tr/>");
+                var tr = $("<tr/>").attr("id", conto.contoId);
                 $('#data').append(tr);
                 tr.append($('<td/>').text(user.firstName));
                 tr.append($('<td/>').text(user.secondName));
@@ -66,6 +66,7 @@
                     {
                         tr.append($('<td/>').text(balance.accountBalance));
                         tr.append($('<td/>').text(balance.userId));
+                        tr.append($('<td/>').text(balance.contoId));
                     }
                 }
             }
