@@ -22,6 +22,7 @@
                     <th>Age</th>
                     <th>Account Balance</th>
                     <th>User ID</th>
+                    <th>Conto ID</th>
                 </tr>
             </thead>
 
@@ -55,20 +56,15 @@
             var balances = responseBalance[0];
             for(var user of users)
             {
-                var tr = $("<tr/>").attr("id", conto.contoId);
+                var balance = balances.find(b => b.userId == user.userId)
+                var tr = $("<tr/>").attr("id", balance.contoId);
                 $('#data').append(tr);
                 tr.append($('<td/>').text(user.firstName));
                 tr.append($('<td/>').text(user.secondName));
                 tr.append($('<td/>').text(user.age));    
-                for(var balance of balances)
-                {
-                    if(user.userId == balance.userId)
-                    {
-                        tr.append($('<td/>').text(balance.accountBalance));
-                        tr.append($('<td/>').text(balance.userId));
-                        tr.append($('<td/>').text(balance.contoId));
-                    }
-                }
+                tr.append($('<td/>').text(balance.accountBalance));
+                tr.append($('<td/>').text(balance.userId));
+                tr.append($('<td/>').text(balance.contoId));                   
             }
       
         });   
